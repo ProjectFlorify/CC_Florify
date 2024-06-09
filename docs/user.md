@@ -24,8 +24,9 @@ Response Body Success :
 
 ```json
 {
+  "error": false,
   "message": "User registered successfully",
-  "userId": "user-1ed365f7-5589-4727-8bad-c005c4740ed3"
+  "userId": "user-c43fb8fb-ce25-49ab-94cf-b716aa1d5dcd"
 }
 ```
 
@@ -33,25 +34,29 @@ Response Body Error :
 
 ```json
 {
-  "errors": "Email and password are required"
+  "error": true,
+  "message": "Email and password are required"
 }
 ```
 
 ```json
 {
-  "errors": "Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, and one number"
+  "error": true,
+  "message": "Password must be at least 8 characters long"
 }
 ```
 
 ```json
 {
-  "errors": "Email already registered"
+  "error": true,
+  "message": "Email already registered"
 }
 ```
 
 ```json
 {
-  "errors": "Email and password are required"
+  "error": true,
+  "message": "Failed to register user"
 }
 ```
 
@@ -74,7 +79,7 @@ Response Body Success :
 
 ```json
 {
-  "error": "false",
+  "error": false,
   "message": "User logged in successfully",
   "loginResult": {
     "userId": "user-9690644f-610c-4d52-a520-1f5eb9c1c9d9",
@@ -87,35 +92,35 @@ Response Body Error :
 
 ```json
 {
-  "error": "True",
+  "error": true,
   "message": "Email and password are required"
 }
 ```
 
 ```json
 {
-  "error": "True",
+  "error": true,
   "message": "Invalid email or password"
 }
 ```
 
 ```json
 {
-  "error": "True",
+  "error": true,
   "message": "Invalid email or password"
 }
 ```
 
 ```json
 {
-  "error": "True",
+  "error": true,
   "message": "Failed to log in user"
 }
 ```
 
 ## Get User API
 
-URL : 
+URL :
 
 Mehod : GET
 
@@ -127,7 +132,7 @@ Response Body Success:
 
 ```json
 {
-  "error": "false",
+  "error": false,
   "message": "",
   "data": {
     "name": "darfa",
@@ -140,7 +145,7 @@ Response Body Error :
 
 ```json
 {
-  "error": "True",
+  "error": true,
   "message": "Unauthorized"
 }
 ```
@@ -149,7 +154,7 @@ Response Body Error :
 
 URL : /logout
 
-Mehod : 
+Mehod :
 
 Headers :
 
@@ -159,7 +164,7 @@ Response Body Success :
 
 ```json
 {
-  "error": "false",
+  "error": false,
   "message": "User logged out successfully"
 }
 ```
@@ -168,7 +173,7 @@ Response Body Error :
 
 ```json
 {
-  "error": "True",
+  "error": true,
   "message": "Failed to log out user"
 }
 ```
