@@ -7,26 +7,41 @@ async function predictClassification(model, image) {
   const score = await prediction.data();
   const confidenceScore = Math.max(...score) * 100;
 
-  const classes = ['Potato__early_blight', 'Potato__healthy', 'Potato__late_blight'];
+  const classes = ['Melanocytic nevus', 'Squamous cell carcinoma', 'Vascular lesion'];
+  // const classes = ['Potato__early_blight', 'Potato__healthy', 'Potato__late_blight'];
   const classResult = tf.argMax(prediction, 1).dataSync()[0];
   const label = classes[classResult];
 
   let explanation, suggestion;
 
-  if (label === 'Potato__early_blight') {
-    explanation = "Potato__early_blight blablablalbabla."
+  if (label === 'Melanocytic nevus') {
+    explanation = "Melanocytic nevus blablablalbabla."
     suggestion = "blablablalbabla."
   }
 
-  if (label === 'Potato__healthy') {
-    explanation = "Potato__healthy blablablalbabla."
+  if (label === 'Squamous cell carcinoma') {
+    explanation = "Squamous cell carcinoma blablablalbabla."
     suggestion = "blablablalbabla."
   }
 
-  if (label === 'Potato__late_blight') {
-    explanation = "Potato__late_blight blablablalbabla."
+  if (label === 'Vascular lesion') {
+    explanation = "Vascular lesion blablablalbabla."
     suggestion = "blablablalbabla."
   }
+  // if (label === 'Potato__early_blight') {
+  //   explanation = "Potato__early_blight blablablalbabla."
+  //   suggestion = "blablablalbabla."
+  // }
+
+  // if (label === 'Potato__healthy') {
+  //   explanation = "Potato__healthy blablablalbabla."
+  //   suggestion = "blablablalbabla."
+  // }
+
+  // if (label === 'Potato__late_blight') {
+  //   explanation = "Potato__late_blight blablablalbabla."
+  //   suggestion = "blablablalbabla."
+  // }
 
   return { confidenceScore, label, explanation, suggestion };
 //   const prediction = model.predict(tensor);

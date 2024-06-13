@@ -30,7 +30,7 @@ async function postPrediction(req, res) {
   } catch (error) {
     if (req.file && req.file.truncated) return res.status(413).json({ status: "fail", message: "Payload content length greater than maximum allowed: 1000000" });
 
-    return res.status(500).json({ status: "fail", essage: error.message });
+    return res.status(500).json({ status: "fail", message: error.message });
   }
 }
 
