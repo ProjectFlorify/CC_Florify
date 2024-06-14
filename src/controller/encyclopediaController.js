@@ -1,11 +1,8 @@
-const { Firestore } = require("@google-cloud/firestore");
-
-const db = new Firestore();
+const db = require('../firestore'); 
 
 const getEncyclopedia = async (req, res) => {
   try {
-    const encyclopediaCollection = db.collection("encyclopedia");
-    const snapshot = await encyclopediaCollection.get();
+    const snapshot = await db.collection("encyclopedia").get();
 
     if (snapshot.empty) {
       return res.status(404).json({ error: true, message: "No documents found" });

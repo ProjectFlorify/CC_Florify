@@ -1,10 +1,7 @@
-const Firestore = require("@google-cloud/firestore");
+const db = require('../firestore'); 
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-
-const db = new Firestore();
-const usersCollection = db.collection("users");
 
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -13,7 +10,7 @@ const registerUser = async (req, res) => {
 
   if (password.length < 8) return res.status(400).json({ error: true, message: "Password must be at least 8 characters long" });
 
-  const checkUsedEmail = await usersCollection.where("email", "==", email).get();
+  const checkUsedEmail = await db.collection("users").where("email", "==", email).get();
   if (!checkUsedEmail.empty) return res.status(400).json({ error: true, message: "Email already registered" });
 
   try {
@@ -25,7 +22,7 @@ const registerUser = async (req, res) => {
       email,
       password: hashedPassword,
     };
-    await usersCollection.doc(userId).set(dataUser);
+    await db.collection("users").doc(userId).set(dataUser);
 
     return res.status(200).json({ error: false, message: "User registered successfully", userId });
   } catch (error) {
@@ -40,7 +37,7 @@ const loginUser = async (req, res) => {
   if (!email || !password) return res.status(400).json({ error: true, message: "Email and password are required" });
 
   try {
-    const userSnapshot = await usersCollection.where("email", "==", email).get();
+    const userSnapshot = await db.collection("users").where("email", "==", email).get();
     if (userSnapshot.empty) return res.status(400).json({ error: true, message: "Invalid email or password" });
     const user = userSnapshot.docs[0].data();
 
@@ -58,7 +55,7 @@ const loginUser = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const userSnapshot = await usersCollection.doc(userId).get();
+    const userSnapshot = await db.collection("users").doc(userId).get();
     if (!userSnapshot.exists) return res.status(404).json({ error: true, message: "User not found" });
 
     const userData = userSnapshot.data();
