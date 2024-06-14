@@ -21,13 +21,13 @@ const getEncyclopedia = async (req, res) => {
 
 const getEncyclopediaByTitle = async (req, res) => {
   try {
-    const { title } = req.params;
+    const { q } = req.query;
     
-    if (!title) {
-      return res.status(400).json({ error: true, message: "Title parameter is missing" });
+    if (!q) {
+      return res.status(400).json({ error: true, message: "Query parameter is missing" });
     }
 
-    const documentSnapshot = await db.collection("encyclopedia").where("title", "==", title).get();
+    const documentSnapshot = await db.collection("encyclopedia").where("title", "==", q).get();
 
     if (documentSnapshot.empty) {
       return res.status(404).json({ error: true, message: "Document not found" });

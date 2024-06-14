@@ -18,7 +18,7 @@ router.post("/logout", logoutUser);
 
 router.get("/encyclopedia", getEncyclopedia);
 
-router.get("/encyclopedia/:title", getEncyclopediaByTitle);
+router.get("/encyclopedia/search", getEncyclopediaByTitle);
 
 // router.post("/predict", postPrediction);
 
