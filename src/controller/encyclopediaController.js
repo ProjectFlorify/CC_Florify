@@ -19,16 +19,24 @@ const getEncyclopedia = async (req, res) => {
   }
 };
 
-const getEncyclopediaById = async (req, res) => {
+const getEncyclopediaByTitle = async (req, res) => {
   try {
-    const { id } = req.params;
-    const documentSnapshot = await db.collection("encyclopedia").doc(id).get();
+    const { title } = req.params;
+    
+    if (!title) {
+      return res.status(400).json({ error: true, message: "Title parameter is missing" });
+    }
 
-    if (!documentSnapshot.exists) {
+    const documentSnapshot = await db.collection("encyclopedia").where("title", "==", title).get();
+
+    if (documentSnapshot.empty) {
       return res.status(404).json({ error: true, message: "Document not found" });
     }
 
-    const encyclopedia = { id: documentSnapshot.id, ...documentSnapshot.data() };
+    const encyclopedia = [];
+    documentSnapshot.forEach((doc) => {
+      encyclopedia.push({ id: doc.id, ...doc.data() });
+    });
 
     return res.status(200).json({ error: false, encyclopedia });
   } catch (error) {
@@ -36,4 +44,4 @@ const getEncyclopediaById = async (req, res) => {
   }
 };
 
-module.exports = { getEncyclopedia, getEncyclopediaById };
+module.exports = { getEncyclopedia, getEncyclopediaByTitle };

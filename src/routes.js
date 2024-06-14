@@ -4,7 +4,7 @@ const router = express.Router();
 const { registerUser, loginUser, getUser, logoutUser } = require("./controller/userController");
 const { verifyToken } = require("./middleware/userMiddleware");
 const postPrediction = require("./controller/mlController");
-const { getEncyclopedia, getEncyclopediaById } = require("./controller/encyclopediaController");
+const { getEncyclopedia, getEncyclopediaByTitle } = require("./controller/encyclopediaController");
 
 router.post("/register", registerUser);
 
@@ -16,7 +16,7 @@ router.post("/logout", logoutUser);
 
 router.get("/encyclopedia", getEncyclopedia);
 
-router.get("/encyclopedia/:id", getEncyclopediaById);
+router.get("/encyclopedia/:title", getEncyclopediaByTitle);
 
 // router.post("/predict", postPrediction);
 
