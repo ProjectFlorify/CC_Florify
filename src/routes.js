@@ -1,23 +1,21 @@
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const router = express.Router();
-const { registerUser, loginUser, getUser, logoutUser } = require('./controller/userController');
-const { verifyToken } = require('./middleware/userMiddleware');
-const postPrediction = require('./controller/mlController');
+const { registerUser, loginUser, getUser, logoutUser } = require("./controller/userController");
+const { verifyToken } = require("./middleware/userMiddleware");
+const postPrediction = require("./controller/mlController");
+const getEncyclopedia = require("./controller/encyclopediaController");
 
-// Register route
-router.post('/register', registerUser);
+router.post("/register", registerUser);
 
-// Login route
-router.post('/login', loginUser);
+router.post("/login", loginUser);
 
-// Get user route
-router.get('/user', verifyToken, getUser);
+router.get("/user", verifyToken, getUser);
 
-// Logout route
-router.post('/logout', logoutUser);
+router.post("/logout", logoutUser);
 
-// Predict route
-router.post('/predict', postPrediction)
+router.get("/encyclopedia", getEncyclopedia);
+
+// router.post("/predict", postPrediction);
 
 module.exports = router;
