@@ -66,8 +66,46 @@ const getUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  const { name, email, password } = req.body;
+  const userId = req.user.userId;
+
+  if (!name && !email && !password) 
+    return res.status(400).json({ error: true, message: "No data to update" });
+
+  try {
+    const userSnapshot = await db.collection("users").doc(userId).get();
+    if (!userSnapshot.exists) 
+      return res.status(404).json({ error: true, message: "User not found" });
+
+    let updatedData = {};
+
+    if (name) updatedData.name = name;
+    if (email) {
+      const checkUsedEmail = await db.collection("users").where("email", "==", email).get();
+      if (!checkUsedEmail.empty)
+        return res.status(400).json({ error: true, message: "Email already registered" });
+      updatedData.email = email;
+    }
+
+    if (password) {
+      if (password.length < 8)
+        return res.status(400).json({ error: true, message: "Password must be at least 8 characters long" });
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updatedData.password = hashedPassword;
+    }
+
+    await db.collection("users").doc(userId).update(updatedData);
+
+    return res.status(200).json({ error: false, message: "User updated successfully" });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return res.status(500).json({ error: true, message: "Failed to update user" });
+  }
+};
+
 const logoutUser = async (req, res) => {
   return res.status(200).json({ error: false, message: "User logged out successfully" });
 };
 
-module.exports = { registerUser, loginUser, getUser, logoutUser };
+module.exports = { registerUser, loginUser, getUser, updateUser, logoutUser  };

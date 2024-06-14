@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const router = express.Router();
-const { registerUser, loginUser, getUser, logoutUser } = require("./controller/userController");
+const { registerUser, loginUser, getUser, updateUser, logoutUser } = require("./controller/userController");
 const { verifyToken } = require("./middleware/userMiddleware");
 const postPrediction = require("./controller/mlController");
 const { getEncyclopedia, getEncyclopediaByTitle } = require("./controller/encyclopediaController");
@@ -11,6 +11,8 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 router.get("/user", verifyToken, getUser);
+
+router.patch("/update", verifyToken, updateUser);
 
 router.post("/logout", logoutUser);
 
