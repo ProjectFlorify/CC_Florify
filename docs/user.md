@@ -120,7 +120,7 @@ Response Body Error :
 
 ## Get User API
 
-URL :
+URL :/user
 
 Mehod : GET
 
@@ -150,11 +150,77 @@ Response Body Error :
 }
 ```
 
+## Update User API
+
+URL :/update
+
+Mehod : PATCH
+
+Headers :
+
+- Authorization : token
+
+Request Body :
+
+```json
+{
+  "name": "test",
+  "email": "test123@gmail.com",
+  "password": "12345678b"
+}
+```
+
+Response Body Success:
+
+```json
+{
+  "error": false,
+  "message": "User updated successfully"
+}
+```
+
+Response Body Error :
+
+```json
+{
+  "error": true,
+  "message": "Invalid token"
+}
+```
+
+```json
+{
+  "error": true,
+  "message": "No data to update"
+}
+```
+
+```json
+{
+  "error": true,
+  "message": "Email already registered"
+}
+```
+
+```json
+{
+  "error": true,
+  "message": "Password must be at least 8 characters long"
+}
+```
+
+```json
+{
+  "error": true,
+  "message": "Failed to update user"
+}
+```
+
 ## Logout User API
 
 URL : /logout
 
-Mehod :
+Method : POST
 
 Headers :
 
