@@ -1,17 +1,14 @@
-FROM python:3.11.3
+FROM python:3.10.0-slim
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY requirement.txt requirement.txt
+COPY requirements.txt .
 
-RUN pip install -r requirement.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-ENV PYTHONUNBUFFERED=1
-
-ENV HOST 0.0.0.0
-
 EXPOSE 8080
 
-CMD ["python", "app.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
+

@@ -1,6 +1,0 @@
-Flask
-numpy
-tensorflow
-Pillow
-flask-cors
-waitress

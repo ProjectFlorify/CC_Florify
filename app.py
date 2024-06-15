@@ -8,12 +8,10 @@ from PIL import Image
 import io
 import os
 from flask_cors import CORS
-from waitress import serve
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for Flask app
+CORS(app)
 
-# Model paths and class names
 MODEL_PATHS = {
     'potato': 'potato_disease_model.h5',
     'rice': 'rice_disease_model.h5',
@@ -26,12 +24,11 @@ CLASS_NAMES = {
     'corn': ['Corn Common Rust', 'Corn Gray Leaf Spot', 'Corn Healthy', 'Corn Northern Leaf Blight']
 }
 
-# Load models
 models = {}
 for plant, path in MODEL_PATHS.items():
     if not os.path.exists(path):
         raise FileNotFoundError(f"Model file for {plant} not found at {path}")
-    models[plant] = load_model(path)
+    models[plant] = load_model(path, compile=False)
 
 def preprocess_image(image_bytes):
     img = Image.open(io.BytesIO(image_bytes)).resize((224, 224))
@@ -41,7 +38,7 @@ def preprocess_image(image_bytes):
     return img_array
 
 @app.route('/', methods=['GET'])
-def serverCheck():
+def index():
     return 'Welcome to Florify Model Server!'
 
 @app.route('/predict', methods=['POST'])
@@ -73,5 +70,6 @@ def predict():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    print("Your model server running successfully!")
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    port = int(os.environ.get("PORT", 8080))
+    print(f"Your model server is running on port {port}")
+    app.run(debug=True, host='0.0.0.0', port=port)
