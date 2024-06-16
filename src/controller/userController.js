@@ -122,7 +122,6 @@ const deleteUser = async (req, res) => {
 
     await batch.commit();
 
-    // Delete all images from GCS
     await Promise.all(imageUrls.map(url => deleteImageFromGCS(url)));
 
     await db.collection("users").doc(userId).delete();
