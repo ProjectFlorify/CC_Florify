@@ -1,4 +1,4 @@
-const db = require("../firestore");
+const db = require("../services/firestore");
 
 const getEncyclopedia = async (req, res) => {
   try {
@@ -22,7 +22,7 @@ const getEncyclopedia = async (req, res) => {
 const getEncyclopediaByTitle = async (req, res) => {
   try {
     const { q } = req.query;
-    
+
     if (!q) {
       return res.status(400).json({ error: true, message: "Query parameter is missing" });
     }
