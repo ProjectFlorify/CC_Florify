@@ -11,7 +11,7 @@ const handleFileUpload = upload.single("image");
 const postPrediction = (req, res) => {
   handleFileUpload(req, res, async (err) => {
     if (err) {
-      return res.status(400).send("Error uploading file.");
+      return res.status(400).json({ error: true, message: "Error uploading file." });
     }
 
     const userId = req.user.userId;
@@ -20,7 +20,7 @@ const postPrediction = (req, res) => {
     const imageFile = req.file;
 
     if (!plant || !imageFile) {
-      return res.status(400).send("Plant type and image file are required.");
+      return res.status(400).json({ error: true, message: "Plant type and image file are required." });
     }
 
     try {
@@ -45,12 +45,24 @@ const postPrediction = (req, res) => {
 
       await db.collection("predictions").add(predictionData);
 
-      res.json(response.data);
+      return res.status(200).json({ error: false, predictionData });
     } catch (error) {
-      console.error(error);
-      res.status(500).send("An error occurred while processing your request.");
+      return res.status(500).json({ error: error.message });
     }
   });
 };
 
-module.exports = { postPrediction };
+const getPredictionsHistory = async (req, res) => {
+  const userId = req.user.userId;
+
+  try {
+    const snapshot = await db.collection("predictions").where("user", "==", userId).get();
+    const predictions = snapshot.docs.map((doc) => doc.data());
+
+    return res.status(200).json({ error: false, predictions });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { postPrediction, getPredictionsHistory };

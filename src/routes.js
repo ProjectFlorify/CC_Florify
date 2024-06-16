@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const { registerUser, loginUser, getUser, updateUser, logoutUser } = require("./controller/userController");
 const { verifyToken } = require("./middleware/userMiddleware");
-const { postPrediction } = require("./controller/mlController");
+const { postPrediction, getPredictionsHistory } = require("./controller/mlController");
 const { getEncyclopedia, getEncyclopediaByTitle } = require("./controller/encyclopediaController");
 
 router.post("/register", registerUser);
@@ -21,5 +21,7 @@ router.get("/encyclopedia", getEncyclopedia);
 router.get("/encyclopedia/search", getEncyclopediaByTitle);
 
 router.post("/predict", verifyToken, postPrediction);
+
+router.get("/predict/user", verifyToken, getPredictionsHistory);
 
 module.exports = router;
