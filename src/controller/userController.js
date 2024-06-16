@@ -2,6 +2,7 @@ const db = require("../services/firestore");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
+const { deleteImageFromGCS } = require("./GCS");
 
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -107,13 +108,30 @@ const deleteUser = async (req, res) => {
     const userSnapshot = await db.collection("users").doc(userId).get();
     if (!userSnapshot.exists) return res.status(404).json({ error: true, message: "User not found" });
 
+    const predictionsSnapshot = await db.collection("users").doc(userId).collection("predictions").get();
+    const batch = db.batch();
+    const imageUrls = [];
+
+    predictionsSnapshot.forEach(doc => {
+      const predictionData = doc.data();
+      const predictionRef = db.collection("users").doc(userId).collection("predictions").doc(doc.id);
+
+      batch.delete(predictionRef);
+      imageUrls.push(predictionData.imageUrl);
+    });
+
+    await batch.commit();
+
+    // Delete all images from GCS
+    await Promise.all(imageUrls.map(url => deleteImageFromGCS(url)));
+
     await db.collection("users").doc(userId).delete();
 
-    return res.status(200).json({ error: false, message: "User deleted successfully" });
+    return res.status(200).json({ error: false, message: "User and all related data deleted successfully" });
   } catch (error) {
     console.error("Error deleting user:", error);
-    return res.status(500).json({ error: true, message: "Failed to delete user" });
-  }
+    return res.status(500).json({ error: true, message: "Failed to delete user" });
+  }
 };
 
 const logoutUser = async (req, res) => {
