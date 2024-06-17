@@ -7,12 +7,12 @@ const { deleteImageFromGCS } = require("./GCS");
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
-  if (!email || !password) return res.status(400).json({ error: true, message: "Email and password are required" });
+  if (!email || !password) return res.status(401).json({ error: true, message: "Email and password are required" });
 
-  if (password.length < 8) return res.status(400).json({ error: true, message: "Password must be at least 8 characters long" });
+  if (password.length < 8) return res.status(402).json({ error: true, message: "Password must be at least 8 characters long" });
 
   const checkUsedEmail = await db.collection("users").where("email", "==", email).get();
-  if (!checkUsedEmail.empty) return res.status(400).json({ error: true, message: "Email already registered" });
+  if (!checkUsedEmail.empty) return res.status(403).json({ error: true, message: "Email already registered" });
 
   try {
     const id = crypto.randomUUID();
@@ -35,15 +35,15 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) return res.status(400).json({ error: true, message: "Email and password are required" });
+  if (!email || !password) return res.status(401).json({ error: true, message: "Email and password are required" });
 
   try {
     const userSnapshot = await db.collection("users").where("email", "==", email).get();
-    if (userSnapshot.empty) return res.status(400).json({ error: true, message: "Invalid email or password" });
+    if (userSnapshot.empty) return res.status(403).json({ error: true, message: "Invalid email or password" });
     const user = userSnapshot.docs[0].data();
 
     const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) return res.status(400).json({ error: true, message: "Invalid email or password" });
+    if (!passwordMatch) return res.status(405).json({ error: true, message: "Invalid email or password" });
     const accessToken = jwt.sign({ userId: userSnapshot.docs[0].id }, process.env.SECRET_KEY, { expiresIn: "24h" });
 
     return res.status(200).json({ error: false, message: "User logged in successfully", token: accessToken });
@@ -82,12 +82,12 @@ const updateUser = async (req, res) => {
     if (name) updatedData.name = name;
     if (email) {
       const checkUsedEmail = await db.collection("users").where("email", "==", email).get();
-      if (!checkUsedEmail.empty) return res.status(400).json({ error: true, message: "Email already registered" });
+      if (!checkUsedEmail.empty) return res.status(403).json({ error: true, message: "Email already registered" });
       updatedData.email = email;
     }
 
     if (password) {
-      if (password.length < 8) return res.status(400).json({ error: true, message: "Password must be at least 8 characters long" });
+      if (password.length < 8) return res.status(402).json({ error: true, message: "Password must be at least 8 characters long" });
       const hashedPassword = await bcrypt.hash(password, 10);
       updatedData.password = hashedPassword;
     }

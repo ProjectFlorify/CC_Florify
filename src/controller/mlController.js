@@ -9,7 +9,7 @@ const postPrediction = async (req, res) => {
   const imageFile = req.file;
 
   if (!plant || !imageFile) {
-    return res.status(400).json({ error: true, message: "Plant type and image file are required." });
+    return res.status(401).json({ error: true, message: "Plant type and image file are required." });
   }
 
   try {
