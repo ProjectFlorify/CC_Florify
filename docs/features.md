@@ -183,3 +183,86 @@ Response Body Error :
   "Plant type and image file are required."
 }
 ```
+
+## Plant Prediction History API
+
+URL : /predict/user
+
+Mehod : GET
+
+Response Body Success :
+
+```json
+{
+   "error": false,
+    "predictions": [
+        {
+            "plant": "rice",
+            "imageUrl": "https://storage.googleapis.com/florify-bucket/upload/user-151f6f24-1f32-475e-8435-05dda18e52ab/1718705196218_blast18.JPG",
+            "prediction": "Rice Neck Blast",
+            "id": "predict-cb3c547e-1256-4590-afad-63ec0ce6b9ee",
+            "timestamp": {
+                "_seconds": 1718705235,
+                "_nanoseconds": 494000000
+            }
+        }
+    ]
+}
+```
+
+Response Body Error :
+
+```json
+{
+  "error": true,
+  "message": "Invalid token"
+}
+```
+
+## Plant Prediction Delete API
+
+URL : /predict/delete/:predictionId
+
+Mehod : DELETE
+
+Response Body Success :
+
+```json
+{
+  "error": false,
+  "message": "Prediction and image deleted successfully."
+}
+```
+
+Response Body Error :
+
+```json
+{
+  "error": true,
+  "message": "Prediction not found."
+}
+```
+
+## Plant Prediction Delete All API
+
+URL : /predict/deleteAll
+
+Mehod : DELETE
+
+Response Body Success :
+
+```json
+{
+  "error": false,
+  "message": "All predictions and images deleted successfully.."
+}
+```
+
+Response Body Error :
+
+```json
+{
+  "error": true,
+  "message": "Invalid token"
+}
+```
