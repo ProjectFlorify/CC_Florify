@@ -4,7 +4,7 @@
 
 ## Get Encyclopedia API
 
-URL : /encyclopedia
+URL : `/encyclopedia`
 
 Mehod : GET
 
@@ -113,7 +113,7 @@ Response Body Error :
 
 ## Encyclopedia Search API
 
-URL : /encyclopedia/search
+URL : `/encyclopedia/search`
 
 Mehod : GET
 
@@ -145,9 +145,19 @@ Response Body Error :
 
 ## Plant Prediction API
 
-URL : /predict
+URL : `/predict`
 
 Mehod : POST
+
+Headers :
+
+- `Content-Type` : `multipart/form-data`
+- `Authorization` : `Bearer <token>`
+
+Request Body :
+
+- `plant type` as `string`
+- `image` as `file`
 
 Response Body Success :
 
@@ -186,9 +196,13 @@ Response Body Error :
 
 ## Plant Prediction History API
 
-URL : /predict/user
+URL : `/predict/user`
 
 Mehod : GET
+
+Headers :
+
+- `Authorization` : `Bearer <token>`
 
 Response Body Success :
 
@@ -221,9 +235,13 @@ Response Body Error :
 
 ## Plant Prediction Delete API
 
-URL : /predict/delete/:predictionId
+URL : `/predict/delete/:predictionId`
 
 Mehod : DELETE
+
+Headers :
+
+- `Authorization` : `Bearer <token>`
 
 Response Body Success :
 
@@ -245,9 +263,13 @@ Response Body Error :
 
 ## Plant Prediction Delete All API
 
-URL : /predict/deleteAll
+URL : `/predict/deleteAll`
 
 Mehod : DELETE
+
+Headers :
+
+- `Authorization` : `Bearer <token>`
 
 Response Body Success :
 
