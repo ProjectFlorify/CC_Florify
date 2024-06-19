@@ -6,7 +6,7 @@ https://testing-flo.et.r.appspot.com
 
 ## Register User API
 
-URL : /register
+URL : `/register`
 
 Mehod : POST
 
@@ -62,7 +62,7 @@ Response Body Error :
 
 ## Login User API
 
-URL : /login
+URL : `/login`
 
 Mehod : POST
 
@@ -120,13 +120,13 @@ Response Body Error :
 
 ## Get User API
 
-URL :/user
+URL :`/user`
 
 Mehod : GET
 
 Headers :
 
-- Authorization : token
+- `Authorization` : `Bearer <token>`
 
 Response Body Success:
 
@@ -152,13 +152,13 @@ Response Body Error :
 
 ## Update User API
 
-URL :/update
+URL :`/update`
 
 Mehod : PATCH
 
 Headers :
 
-- Authorization : token
+- `Authorization` : `Bearer <token>
 
 Request Body :
 
@@ -218,13 +218,13 @@ Response Body Error :
 
 ## Logout User API
 
-URL : /logout
+URL : `/logout`
 
 Method : POST
 
 Headers :
 
-- Authorization : token
+- `Authorization` : `Bearer <token>`
 
 Response Body Success :
 
