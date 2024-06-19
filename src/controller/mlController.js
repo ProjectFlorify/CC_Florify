@@ -106,4 +106,5 @@ const deleteAllPredictions = async (req, res) => {
   }
 };
 
-module.exports = { postPrediction, getPredictionsHistory, deletePrediction, deleteAllPredictions  };
+
+module.exports = { postPrediction, getPredictionsHistory, deletePrediction, deleteAllPredictions };
