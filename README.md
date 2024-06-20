@@ -7,7 +7,8 @@ These are all the APIs that will be used in the Florify app project. The API is 
 - Handle the encyclopedia and search for user
 - Handle the forum, comment, and search forum for user
 
-## Register User API
+## 1. List API 
+### Register User API
 
 URL : `/register`
 
@@ -33,7 +34,7 @@ Response Body Success :
 }
 ```
 
-## Login User API
+#### Login User API
 
 URL : `/login`
 
@@ -61,7 +62,7 @@ Response Body Success :
 }
 ```
 
-## Get User API
+### Get User API
 
 URL :`/user`
 
@@ -84,7 +85,7 @@ Response Body Success:
 }
 ```
 
-## Update User API
+### Update User API
 
 URL :`/update`
 
@@ -113,7 +114,7 @@ Response Body Success:
 }
 ```
 
-## Logout User API
+### Logout User API
 
 URL : `/logout`
 
@@ -132,7 +133,7 @@ Response Body Success :
 }
 ```
 
-## Get Encyclopedia API
+### Get Encyclopedia API
 
 URL : `/encyclopedia`
 
@@ -162,7 +163,7 @@ Response Body Success :
 }
 ```
 
-## Encyclopedia Search API
+### Encyclopedia Search API
 
 URL : `/encyclopedia/search`
 
@@ -185,7 +186,7 @@ Response Body Success :
 }
 ```
 
-## Plant Prediction API
+### Plant Prediction API
 
 URL : `/predict`
 
@@ -216,7 +217,7 @@ Response Body Success :
 }
 ```
 
-## Plant Prediction History API
+### Plant Prediction History API
 
 URL : `/predict/user`
 
@@ -246,7 +247,7 @@ Response Body Success :
 }
 ```
 
-## Plant Prediction Delete API
+### Plant Prediction Delete API
 
 URL : `/predict/delete/:predictionId`
 
@@ -265,7 +266,7 @@ Response Body Success :
 }
 ```
 
-## Plant Prediction Delete All API
+### Plant Prediction Delete All API
 
 URL : `/predict/deleteAll`
 
@@ -284,7 +285,7 @@ Response Body Success :
 }
 ```
 
-## Forum API
+### Forum API
 
 URL : `/forum/:predictionId`
 
@@ -319,7 +320,7 @@ Response Body Success :
 }
 ```
 
-## Get Forum Data
+### Get Forum Data
 
 URL : `/forum`
 
@@ -349,7 +350,7 @@ Response Body Success :
 }
 ```
 
-## Post Forum Comment API
+### Post Forum Comment API
 
 URL : `/forum/:forumId/comment`
 
@@ -381,7 +382,7 @@ Response Body Success :
 }
 ```
 
-## Get Forum by ID API
+### Get Forum by ID API
 
 URL : `/forum/:forumId`
 
@@ -417,3 +418,6 @@ Response Body Success :
   }
 }
 ```
+## 2. Services 
+## 3. Database
+## 4. CLoud Architecture
