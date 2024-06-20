@@ -419,5 +419,12 @@ Response Body Success :
 }
 ```
 ## 2. Services 
+
+To deploy this API, we need use some services in the Cloud (for this, we deploy it in Google Cloud Platform)
+- `Cloud Firestore`. This service is used to store all the user, encyclopedia, prediction and forum data.
+- `App Engine`. This service is used to deploy our Node.js app. Where we put our REST API.
+- `Cloud Run`. This service is used to deploy our machine learning models API using Flask API.
+- `Cloud Storage`. This service is used to store the asset or image file for our encyclopedia and pediction history.
+
 ## 3. Database
 ## 4. CLoud Architecture
