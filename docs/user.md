@@ -30,36 +30,6 @@ Response Body Success :
 }
 ```
 
-Response Body Error :
-
-```json
-{
-  "error": true,
-  "message": "Email and password are required"
-}
-```
-
-```json
-{
-  "error": true,
-  "message": "Password must be at least 8 characters long"
-}
-```
-
-```json
-{
-  "error": true,
-  "message": "Email already registered"
-}
-```
-
-```json
-{
-  "error": true,
-  "message": "Failed to register user"
-}
-```
-
 ## Login User API
 
 URL : `/login`
@@ -88,36 +58,6 @@ Response Body Success :
 }
 ```
 
-Response Body Error :
-
-```json
-{
-  "error": true,
-  "message": "Email and password are required"
-}
-```
-
-```json
-{
-  "error": true,
-  "message": "Invalid email or password"
-}
-```
-
-```json
-{
-  "error": true,
-  "message": "Invalid email or password"
-}
-```
-
-```json
-{
-  "error": true,
-  "message": "Failed to log in user"
-}
-```
-
 ## Get User API
 
 URL :`/user`
@@ -141,15 +81,6 @@ Response Body Success:
 }
 ```
 
-Response Body Error :
-
-```json
-{
-  "error": true,
-  "message": "Unauthorized"
-}
-```
-
 ## Update User API
 
 URL :`/update`
@@ -158,7 +89,7 @@ Mehod : PATCH
 
 Headers :
 
-- `Authorization` : `Bearer <token>
+- `Authorization` : `Bearer <token>`
 
 Request Body :
 
@@ -179,43 +110,6 @@ Response Body Success:
 }
 ```
 
-Response Body Error :
-
-```json
-{
-  "error": true,
-  "message": "Invalid token"
-}
-```
-
-```json
-{
-  "error": true,
-  "message": "No data to update"
-}
-```
-
-```json
-{
-  "error": true,
-  "message": "Email already registered"
-}
-```
-
-```json
-{
-  "error": true,
-  "message": "Password must be at least 8 characters long"
-}
-```
-
-```json
-{
-  "error": true,
-  "message": "Failed to update user"
-}
-```
-
 ## Logout User API
 
 URL : `/logout`
@@ -232,14 +126,5 @@ Response Body Success :
 {
   "error": false,
   "message": "User logged out successfully"
-}
-```
-
-Response Body Error :
-
-```json
-{
-  "error": true,
-  "message": "Failed to log out user"
 }
 ```
