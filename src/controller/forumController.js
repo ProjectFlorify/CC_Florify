@@ -38,9 +38,7 @@ const postToForum = async (req, res) => {
       plantPrediction: plantPrediction,
       resultPrediction: resultPrediction,
       caption: caption,
-      timestamp: new Date(),
-      likes: [],
-      numberOfLikes: 0
+      timestamp: new Date()
     };
 
     await db.collection('forum').doc(postId).set(postData);
@@ -65,26 +63,9 @@ const getForumData = async (req, res) => {
         const commentsSnapshot = await db.collection('forum').doc(forumPost.id).collection('comments').get();
         const comments = commentsSnapshot.docs.map((commentDoc) => commentDoc.data());
 
-        const whoLikes = await Promise.all(
-          forumPost.likes.map(async (like) => {
-            const userDoc = await db.collection('users').doc(like.userId).get();
-            if (userDoc.exists) {
-              return {
-                userName: userDoc.data().name,
-              };
-            } else {
-              return {
-                userName: 'Unknown',
-              };
-            }
-          })
-        );
-
         return {
           ...forumPost,
-          comments,
-          likes: whoLikes,
-          numberOfLikes: forumPost.likes ? forumPost.likes.length : 0
+          comments
         };
       })
     );
@@ -154,77 +135,4 @@ const getForumById = async (req, res) => {
   }
 };
 
-const likeForumPost = async (req, res) => {
-  const userId = req.user.userId;
-  const { forumId } = req.params;
-
-  try {
-    const forumRef = db.collection('forum').doc(forumId);
-    const forumDoc = await forumRef.get();
-
-    if (!forumDoc.exists) {
-      return res.status(404).json({ error: true, message: 'Forum post not found.' });
-    }
-
-    const forumData = forumDoc.data();
-
-    const likesArray = forumData.likes || [];
-
-    const userLiked = likesArray.find((like) => like.userId === userId);
-    if (userLiked) {
-      return res.status(400).json({ error: true, message: 'You have already liked this post.' });
-    }
-
-    const userDoc = await db.collection('users').doc(userId).get();
-    if (!userDoc.exists) {
-      return res.status(404).json({ error: true, message: 'User not found.' });
-    }
-    const userData = userDoc.data();
-    const userName = userData.name;
-    
-    await forumRef.update({
-      likes: [...likesArray, { userId, userName }],
-      numberOfLikes: likesArray.length + 1,
-    });
-
-    return res.status(200).json({ error: false, message: 'Post liked successfully.' });
-  } catch (error) {
-    return res.status(500).json({ error: true, message: error.message });
-  }
-};
-
-const unlikeForumPost = async (req, res) => {
-  const userId = req.user.userId;
-  const { forumId } = req.params;
-
-  try {
-    const forumRef = db.collection('forum').doc(forumId);
-    const forumDoc = await forumRef.get();
-
-    if (!forumDoc.exists) {
-      return res.status(404).json({ error: true, message: 'Forum post not found.' });
-    }
-
-    const forumData = forumDoc.data();
-
-    const likesArray = forumData.likes || [];
-
-    const userLikedIndex = likesArray.findIndex((like) => like.userId === userId);
-    if (userLikedIndex === -1) {
-      return res.status(400).json({ error: true, message: 'You have not liked this post.' });
-    }
-
-    likesArray.splice(userLikedIndex, 1);
-
-    await forumRef.update({
-      likes: likesArray,
-      numberOfLikes: likesArray.length,
-    });
-
-    return res.status(200).json({ error: false, message: 'Post unliked successfully.' });
-  } catch (error) {
-    return res.status(500).json({ error: true, message: error.message });
-  }
-};
-
-module.exports = { postToForum, getForumData, getForumById, postCommentToForum, likeForumPost, unlikeForumPost };
+module.exports = { postToForum, getForumData, getForumById, postCommentToForum };
