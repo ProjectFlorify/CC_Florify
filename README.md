@@ -69,7 +69,7 @@ Mehod : GET
 
 Headers :
 
-- `Authorization` : `Bearer <token>`
+- `Authorization` : `token`
 
 Response Body Success:
 
@@ -92,7 +92,7 @@ Mehod : PATCH
 
 Headers :
 
-- `Authorization` : `Bearer <token>`
+- `Authorization` : `token`
 
 Request Body :
 
@@ -254,7 +254,7 @@ Mehod : DELETE
 
 Headers :
 
-- `Authorization` : `Bearer <token>`
+- `Authorization` : `token`
 
 Response Body Success :
 
@@ -273,7 +273,7 @@ Mehod : DELETE
 
 Headers :
 
-- `Authorization` : `Bearer <token>`
+- `Authorization` : `token`
 
 Response Body Success :
 
@@ -292,7 +292,7 @@ Method : POST
 
 Headers : 
 
-- `Authorization` : `Bearer <token>`
+- `Authorization` : `token`
 
 Request Body :
 
@@ -357,7 +357,7 @@ Method : POST
 
 Headers :
 
-- `Authorization` : `Bearer <token>`
+- `Authorization` : `token`
 
 Request Body :
 
