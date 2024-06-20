@@ -134,6 +134,24 @@ const postCommentToForum = async (req, res) => {
   }
 };
 
+const getCommentById = async (req, res) => {
+  const { forumId, commentId } = req.params;
+
+  try {
+    const commentDoc = await db.collection('forum').doc(forumId).collection('comments').doc(commentId).get();
+
+    if (!commentDoc.exists) {
+      return res.status(404).json({ error: true, message: 'Comment not found.' });
+    }
+
+    const commentData = commentDoc.data();
+
+    return res.status(200).json({ error: false, commentData });
+  } catch (error) {
+    return res.status(500).json({ error: true, message: error.message });
+  }
+};
+
 const likeForumPost = async (req, res) => {
   const userId = req.user.userId;
   const { forumId } = req.params;
@@ -207,4 +225,4 @@ const unlikeForumPost = async (req, res) => {
   }
 };
 
-module.exports = { postToForum, getForumData, postCommentToForum, likeForumPost, unlikeForumPost };
+module.exports = { postToForum, getForumData, postCommentToForum, getCommentById, likeForumPost, unlikeForumPost };

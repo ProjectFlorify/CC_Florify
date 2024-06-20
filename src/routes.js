@@ -5,7 +5,7 @@ const multer = require("multer");
 const { registerUser, loginUser, getUser, updateUser, deleteUser, logoutUser } = require("./controller/userController");
 const { verifyToken } = require("./middleware/verifyToken");
 const { postPrediction, getPredictionsHistory, deletePrediction, deleteAllPredictions } = require("./controller/mlController");
-const { postToForum, getForumData, postCommentToForum, likeForumPost, unlikeForumPost } = require("./controller/forumController");
+const { postToForum, getForumData, postCommentToForum, getCommentById, likeForumPost, unlikeForumPost } = require("./controller/forumController");
 const { getEncyclopedia, getEncyclopediaByTitle } = require("./controller/encyclopediaController");
 
 const upload = multer({
@@ -42,6 +42,8 @@ router.post("/forum/:predictionId", verifyToken, postToForum)
 router.get("/forum", getForumData)
 
 router.post("/forum/:forumId/comment", verifyToken, postCommentToForum);
+
+router.get("/forum/:forumId/comment/:commentId", getCommentById);
 
 router.post("/forum/:forumId/like", verifyToken, likeForumPost);
 
