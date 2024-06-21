@@ -1,8 +1,5 @@
 # Florify API
 
-## Endpoint
-https://testing-flo.et.r.appspot.com
-
 ## Get Encyclopedia API
 
 URL : `/encyclopedia`
