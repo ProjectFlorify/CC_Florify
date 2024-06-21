@@ -427,4 +427,43 @@ To deploy this API, we need use some services in the Cloud (for this, we deploy 
 - `Cloud Storage`. This service is used to store the asset or image file for our encyclopedia and pediction history.
 
 ## 3. Database
+
+### **Users Collection**
+- **userId Document**
+    - name: string
+    - email: string
+    - password: string
+
+**Predictions sub Collection**
+- **predictionId Document**
+    - id: string
+    - plant: string
+    - prediction: string
+    - imageUrl: string (URL to the image)
+    - timestamp: timestamp
+
+### **Encyclopedia Collection**
+- **encyclopediaId Document**
+    - title: string
+    - description: string
+    - handling: string
+    - imageUrl: string (URL to the image)
+
+### **Forum Collection**
+- **forumId Document**
+    - id: string
+    - plantPrediction: string
+    - resultPrediction: string
+    - imagePrediction: string (URL to the image)
+    - userName: string
+    - caption: string
+    - timestamp: timestamp
+
+**Comments sub Collection**
+- **commentId Document**
+    - id: string
+    - userName: string
+    - comment: string
+    - timestamp: timestamp
+
 ## 4. CLoud Architecture
