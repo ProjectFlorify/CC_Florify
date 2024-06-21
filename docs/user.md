@@ -1,9 +1,5 @@
 # Florify API
 
-## Endpoint
-
-https://testing-flo.et.r.appspot.com
-
 ## Register User API
 
 URL : `/register`
