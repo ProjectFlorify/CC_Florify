@@ -1,6 +1,7 @@
 # Florify API
 
 ## Endpoint
+https://testing-flo.et.r.appspot.com
 
 ## Get Encyclopedia API
 
@@ -102,15 +103,6 @@ Response Body Success :
 }
 ```
 
-Response Body Error :
-
-```json
-{
-  "error": true,
-  "message": "No documents found"
-}
-```
-
 ## Encyclopedia Search API
 
 URL : `/encyclopedia/search`
@@ -131,15 +123,6 @@ Response Body Success :
           "title": "Rice Neck Blast"
       }
   ]
-}
-```
-
-Response Body Error :
-
-```json
-{
-  "error": true,
-  "message": "Query parameter is missing"
 }
 ```
 
@@ -174,26 +157,6 @@ Response Body Success :
 }
 ```
 
-Response Body Error :
-
-```json
-{
-  "An error occurred while processing your request."
-}
-```
-
-```json
-{
-  "Error uploading file."
-}
-```
-
-```json
-{
-  "Plant type and image file are required."
-}
-```
-
 ## Plant Prediction History API
 
 URL : `/predict/user`
@@ -224,15 +187,6 @@ Response Body Success :
 }
 ```
 
-Response Body Error :
-
-```json
-{
-  "error": true,
-  "message": "Invalid token"
-}
-```
-
 ## Plant Prediction Delete API
 
 URL : `/predict/delete/:predictionId`
@@ -249,15 +203,6 @@ Response Body Success :
 {
   "error": false,
   "message": "Prediction and image deleted successfully."
-}
-```
-
-Response Body Error :
-
-```json
-{
-  "error": true,
-  "message": "Prediction not found."
 }
 ```
 
@@ -280,11 +225,145 @@ Response Body Success :
 }
 ```
 
-Response Body Error :
+## Forum API
+
+URL : `/forum/:predictionId`
+
+Method : POST
+
+Headers : 
+
+- `Authorization` : `Bearer <token>`
+
+Request Body :
 
 ```json
 {
-  "error": true,
-  "message": "Invalid token"
+  "caption": "rice prediction"
+}
+```
+
+Response Body Success :
+
+```json
+{
+  "error": false,
+  "postData": {
+        "id": "forum-85ccb733-c412-4eb0-b02d-23db0ab21f0d",
+        "userName": "darfa",
+        "imagePrediction": "https://storage.googleapis.com/florify-bucket/forum/user-1ce45dc3-c256-4f0b-b00d-b00999d8d82d/1718877119732_blast18.JPG",
+        "plantPrediction": "rice",
+        "resultPrediction": "Rice Neck Blast",
+        "caption": "rice prediction",
+        "timestamp": "2024-06-20T09:53:55.161Z"
+    }
+}
+```
+
+## Get Forum Data
+
+URL : `/forum`
+
+Method : GET
+
+Response Body Success :
+
+```json
+{
+  {
+    "error": false,
+    "forumData": [
+        {
+            "imagePrediction": "https://storage.googleapis.com/florify-bucket/forum/user-1ce45dc3-c256-4f0b-b00d-b00999d8d82d/1718798734433_Corn Healthy.jpg",
+            "resultPrediction": "Corn Healthy",
+            "plantPrediction": "corn",
+            "caption": "this app is so accurate",
+            "id": "forum-2ca740b1-2ebc-4e29-8598-f21eb4f1ef6b",
+            "userName": "darfa",
+            "timestamp": {
+                "_seconds": 1718804883,
+                "_nanoseconds": 616000000
+            }
+        }
+    ]
+  }
+}
+```
+
+## Post Forum Comment API
+
+URL : `/forum/:forumId/comment`
+
+Method : POST
+
+Headers :
+
+- `Authorization` : `Bearer <token>`
+
+Request Body :
+
+```json
+{
+  "comment": "Wah benar sekali"
+}
+```
+
+Response Body Success :
+
+```json
+{
+  "error": false,
+  "commentData": {
+      "id": "comment-f5929268-208f-4c63-b861-74c4d87dc11c",
+      "userName": "darfa",
+      "comment": "wah benar sekali",
+      "timestamp": "2024-06-20T10:06:27.143Z"
+  }
+}
+```
+
+## Get Forum by ID API
+
+URL : `/forum/:forumId`
+
+Method : GET
+
+Response Body Success :
+
+```json
+{
+  "error": false,
+  "forumData": {
+      "imagePrediction": "https://storage.googleapis.com/florify-bucket/forum/user-1ce45dc3-c256-4f0b-b00d-b00999d8d82d/1718877119732_blast18.JPG",
+      "resultPrediction": "Rice Neck Blast",
+      "plantPrediction": "rice",
+      "caption": "rice prediction",
+      "id": "forum-85ccb733-c412-4eb0-b02d-23db0ab21f0d",
+      "userName": "darfa",
+      "timestamp": {
+          "_seconds": 1718877235,
+          "_nanoseconds": 161000000
+      },
+      "comments": [
+          {
+              "comment": "wah iya",
+              "id": "comment-1688675c-6b87-47c7-9bb5-06d24d64a740",
+              "userName": "darfa",
+              "timestamp": {
+                  "_seconds": 1718877972,
+                  "_nanoseconds": 961000000
+              }
+          },
+          {
+              "comment": "wah benar sekali",
+              "id": "comment-f5929268-208f-4c63-b861-74c4d87dc11c",
+              "userName": "darfa",
+              "timestamp": {
+                  "_seconds": 1718877987,
+                  "_nanoseconds": 143000000
+              }
+          }
+      ]
+  }
 }
 ```
