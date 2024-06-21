@@ -467,3 +467,4 @@ To deploy this API, we need use some services in the Cloud (for this, we deploy 
     - timestamp: timestamp
 
 ## 4. CLoud Architecture
+![alt text](https://github.com/ProjectFlorify/CC_Florify/blob/main/docs/Cloud%20Architecture.png?raw=true)
