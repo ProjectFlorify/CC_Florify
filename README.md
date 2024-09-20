@@ -1,7 +1,6 @@
 # Florify API
 
-Machine Learning Model endpoint (for using the ML model): https://ml-1069614541613.asia-southeast2.run.app
-Florify API endpoint: https://florify-426403.et.r.appspot.com/
+Florify API endpoint (used in Florify app): https://florify-426403.et.r.appspot.com/
 
 These are all the APIs that will be used in the Florify app project. The API is made to run these functions :
 
@@ -202,8 +201,8 @@ Headers :
 
 Request Body :
 
-- `plant type` as `string`
 - `image` as `file`
+- `plant` as `text`
 
 Response Body Success :
 
@@ -421,6 +420,34 @@ Response Body Success :
   }
 }
 ```
+
+### ML model
+
+Machine Learning Model endpoint (for using the ML model): https://ml-1069614541613.asia-southeast2.run.app
+
+URL : `/predict`
+
+Mehod : POST
+
+Request Body :
+
+- `image` as `file`
+- `plant` as `text`
+
+Response Body Success :
+
+```json
+{
+    "predicted_class": "Corn Gray Leaf Spot",
+    "probabilities": [
+        0.17850738763809204,
+        0.4508848488330841,
+        0.17851440608501434,
+        0.1920933574438095
+    ]
+}
+```
+
 ## 2. Services 
 
 To deploy this API, we need use some services in the Cloud (for this, we deploy it in Google Cloud Platform)
