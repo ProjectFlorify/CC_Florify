@@ -1,5 +1,8 @@
 # Florify API
 
+Machine Learning Model endpoint (for using the ML model): https://ml-1069614541613.asia-southeast2.run.app
+Florify API endpoint: https://florify-426403.et.r.appspot.com/
+
 These are all the APIs that will be used in the Florify app project. The API is made to run these functions :
 
 - Handle register, login, get, udpate and logout for user
